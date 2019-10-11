@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!--数组去重-->
+    <!-- [1, 2, 3, 2, 3, 5] -->
+    <script>
+        function uniq1(arr) {
+            return [...new Set(arr)];
+        }
+
+        function uniq2(arr) {
+            var result = [];
+            for (var i = 0; i < arr.length; i++) {
+                if (result.indexOf(arr[i]) == -1) {
+                    result.push(arr[i]);
+                }
+            }
+            return result; 
+        }
+
+        function uniq3(arr) {
+            var result = [];
+            for (var i = 0; i < arr.length; i++) {
+                if (!result.includes(arr[i])) {
+                    result.push(arr[i]);
+                }
+            }
+            return result;
+        }
+
+        function uniq4(arr) {
+            return arr.reduce((prev, cur) => prev.includes(cur) ? prev : [...prev, cur], [])
+        }
+        var arr = [1, 2, 3, 2, 3, 5];
+        console.log(uniq1(arr));
+        console.log(uniq2(arr));
+        console.log(uniq3(arr));
+    </script>
+</body>
+
+</html>
