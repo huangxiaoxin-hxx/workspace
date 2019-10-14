@@ -82,14 +82,53 @@
         <section class="section-seperate section-expander">
             <div class="text-expander">
                 <div class="text-expander__content close">
-                    <p>七位导演分别取材新中国成立70周年以来，祖国经历的无数个历史性经典瞬间。讲述普通人与国家之间息息相关密不可分的动人故事。聚焦大时代大事件下，小人物和国家之间，看似遥远实则密切的关联，唤醒全球华人共同回忆
+                    <p>
                     </p>
                 </div>
                 <div class="text-expander__button">
-                    <i class="icon-shevron__down rotate"></i>
+                    <i class="icon-shevron__down"></i>
                 </div>
             </div>
         </section>
+
+        <!-- section3 -->
+        <section class="section-seperate">
+            <p class="action-list section-til">演职人员</p>
+            <ul class="movie-celebrities">
+            </ul>
+        </section>
+
+        <!-- section4 -->
+        <section class="section-seperate sction-expander movie-booking">
+            <p class="action-list section-til">票房</p>
+            <div class="weui-flex">
+                <div class="weui-flex__item">
+                    <div class="placeholder">
+                        <span id="ranking"></span>
+                        <p>昨日票房排行</p>
+                    </div>
+                </div>
+                <div class="weui-flex__item">
+                    <div class="placeholder">
+                        <span id="bookingWeek">31231</span>
+                        <p>首周票房（万）</p>
+                    </div>
+                </div>
+                <div class="weui-flex__item">
+                    <div class="placeholder">
+                        <span id="bookingTotal">31231</span>
+                        <p>累计票房（万）</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+         <!-- section5 -->
+         <section class="mpvie-photo section-seperate">
+             <p class="action-list section-til">视频和剧照</p>
+             <ul class="movie-photo__lists">
+             </ul>
+         </section>
         <div id="toast">
             <div class="weui-mask_transparent"></div>
             <div class="weui-toast">
@@ -116,6 +155,13 @@
                     $('.address-time .address').html(res.data.where)
                     $('.address-time .time').html(res.data.time)
                     $('.movie-detail .date').html(res.data.date)
+                    $('.text-expander__content p').html(res.data.desc)
+                    console.log(res.data.person)
+                    celebrity(res.data.person)
+                    $('#ranking').html(res.data.ranking)
+                    $('#bookingWeek').html(res.data.weekOffice)
+                    $('#bookingTotal').html(res.data.allOffice)
+                    photo(res.data.pictures)
                 }
             })
 
@@ -153,13 +199,43 @@
 
             //点击展开简介
             $('.text-expander').click(function () {
-                if($('.text-expander__content').hasClass('close')){
+                if ($('.text-expander__content').hasClass('close')) {
                     $('.text-expander__content').removeClass('close')
-                }else{
+                    $('.icon-shevron__down').addClass('up')
+                } else {
                     $('.text-expander__content').addClass('close')
+                    $('.icon-shevron__down').removeClass('up')
                 }
             })
-        })()
+
+            //演职人员
+            function celebrity(e) {
+                for (let n of e) {
+                    $('.movie-celebrities').append(`<li>
+                    <a href="#" class="link">
+                        <div class="movie-celebrities__pic">
+                            <img src="${n.avatal}" alt="">
+                        </div>
+                        <span class="movie-celebrities-nick">${n.name}</span>
+                        <span class="movie-celebrities-roles">${n.sort}</span>
+                    </a>
+                </li>`)
+                }
+            }
+
+            //加入剧照
+           function photo(e) {
+                for (let n of e) {
+                    $('.movie-photo__lists').append(`<li class="stage-img-container">
+                     <a href="#" class="link">
+                         <div class="moive-celebrities__pic">
+                             <img src="${n}" alt="">
+                         </div>
+                     </a>
+                 </li>`)
+                }
+            }
+        })();
     </script>
 </body>
 
