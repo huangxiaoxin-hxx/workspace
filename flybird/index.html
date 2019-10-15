@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="./css/index.css">
+  <title>fly-bird</title>
+</head>
+
+<body>
+  <div class="wrapBg">
+    <div class="headTitle">
+      <img src="./img/bird0.png" alt="小鸟" id='headBird'>
+    </div>
+    <button id="startBtn"></button>
+    <div id="grassLand1" class="grassLand"></div>
+    <div id="grassLand2" class="grassLand"></div>
+  </div>
+  <script src="./js/bird.js"></script>
+  <script>
+    var jsWrapBg = document.querySelector('.wrapBg');
+    var jsHeadTitle = document.querySelector('.headTitle');
+    var jsHeadBird = document.getElementById('headBird');
+    var Y = 3; //标题摆动幅度
+    var index = 0;
+    var imgArr = ["img/bird0.png", "img/bird1.png"];
+    var jsGrassLand1 = document.getElementById('grassLand1');
+    var jsGrassLand2 = document.getElementById('grassLand2');
+
+    var headWaveTimer = setInterval(headWave, 200);
+    var landTimer = setInterval(landRun, 30);
+
+    function headWave() {
+      Y *= -1;
+      jsHeadTitle.style.top = jsHeadTitle.offsetTop + Y + 'px';
+      jsHeadBird.src = imgArr[index++];
+      if (index == 2) {
+        index = 0;
+      }
+    }
+
+    function landRun() {
+      if (jsGrassLand1.offsetLeft <= -343) {
+        jsGrassLand1.style.left = '343px';
+      }
+      if (jsGrassLand2.offsetLeft <= -343) {
+        jsGrassLand2.style.left = '343px';
+      }
+      jsGrassLand1.style.left = jsGrassLand1.offsetLeft - 3 + 'px';
+      jsGrassLand2.style.left = jsGrassLand2.offsetLeft - 3 + 'px';
+    }
+
+    var jsStartBtn = document.getElementById('startBtn');
+    jsStartBtn.onclick = function () {
+      jsHeadTitle.style.display = 'none';
+      clearInterval(headWaveTimer);
+      jsStartBtn.style.display = 'none';
+      //小鸟出现
+      bird.showBird(jsWrapBg);
+      //小鸟下降
+      bird.flyBird();
+      //扇动翅膀
+      bird.wingWave();
+      jsWrapBg.onclick = function () {
+        bird.fallSpeed = -8;
+      }
+    }
+
+  </script>
+
+</body>
+
+</html>
