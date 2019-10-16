@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    /**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+    var nums = [2, 5, 5, 11], target = 10;
+    var twoSum = function (nums, target) {
+      const map = new Map()
+      for (let i = 0; i < nums.length; i++) { // 0,1,2
+        const otherIndex = map.get(target - nums[i]) //8,5,5 
+        if (otherIndex !== undefined) return [otherIndex, i] //第三次在这里返回
+        map.set(nums[i], i) //{8:0},{8:0,5:1}
+      }
+    };
+    console.log(twoSum(nums, target));
+
+  </script>
+</body>
+
+</html>
